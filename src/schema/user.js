@@ -3,8 +3,6 @@ import { gql } from 'apollo-server-express'
 export default gql`
     extend type Query {
         me: User
-        user(userID: ID!): User
-        Users: [User!]
     }
 
     extend type Mutation {
@@ -23,7 +21,7 @@ export default gql`
         updateSyncTime(
             syncTime: Number!
         ): Boolean!
-        deleteUser(userID: ID!): Boolean!
+        deleteAccount(userID: ID!): Boolean!
     }
 
     type User {

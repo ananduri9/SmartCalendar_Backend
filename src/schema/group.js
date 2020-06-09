@@ -3,7 +3,7 @@ import { gql } from 'apollo-server-express'
 export default gql`
     extend type Query {
         group(groupID: ID!): Group
-        Group: [User!]
+        groupUsers: [User!]
     }
 
     extend type Mutation {
