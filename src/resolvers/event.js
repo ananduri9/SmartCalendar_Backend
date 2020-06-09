@@ -1,3 +1,5 @@
+import { async } from "regenerator-runtime"
+
 export default {
     Query: {
       allEvents: async (parent, { userId }, { models }) => {
@@ -12,11 +14,6 @@ export default {
         if (!events) {
           throw new UserInputError('Incorrect user or habit id.')
         }
-
-        events[0].habit = true
-
-        event[0].save()
-
         return events
       },
     },
@@ -42,15 +39,30 @@ export default {
 
         },
 
+        missedEvent: async (parent, { eventId }, {models }) => {
+
+        },
     },
 
     Event: {
-        user: async (game, args, { models }) => {
-
+        user: async (event, args, { models }) => {
+          const event = await models.User.find({
+            event: event.id
+          })
+          if (!event) {
+            throw new UserInputError('Failed to find event.')
+          }
+          return event
         },
 
-        habits: async (game, args, { models }) => {
-
+        habits: async (event, args, { models }) => {
+          const habits = await models.Habit.find({
+            event: event.id
+          })
+          if (!habits) {
+            throw new UserInputError('Failed to find habits.')
+          }
+          return habits
         },
     }
 }
