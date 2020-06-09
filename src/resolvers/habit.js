@@ -24,34 +24,128 @@ const resolverMap = {
 
 export default {
   Query: {
-    user_habit: async (parent, {id, user_id}, { models }) => {
-      if (!me) {
-        return null
-      }
-      return await models.Habit.findOne({ _id: me.id, user_id: user_id})
+    getHabit: async (parent, {id}, { models, user }) => {
+      return await models.Habit.findOne({ _id: id, user: user.id})
     },
 
-    user_habits: async (parent, { user_id }, { models }) => {
-        return await models.Habit.find({ user_id: user_id })
+    getHabits: async (parent, args, { models, user }) => {
+      return await models.Habit.find({ user: user.id })
     },
 
-    group_habits: async (parent, args, { models }) => {
-        return await models.User.find({})
-    },
+    getGroupHabit: async (parent, {id, group_id}, { models, user }) => {
+      return await models.Habit.findOne({ _id: id, user: user.id, group_id: group_id})
+    }
+
+  },
 
   Mutation: {
-    createHabit: async () => {
+    createHabit: async (parent, {habit}, { models, user }) => {
 
+        const hab = new models.Habit({
+          group_id: habit.group_Id,
+          name: habit.name,
+          description: habit.description,
+          start_Date: start_date,
+          end_Date: end_date,
+          frequency: frequency,
+          completion_Prct: completion_pct,
+          user: user.id
+        })
+
+      try {
+        if (!hab) {
+          throw new UserInputError('Failed to create new Habit.')
+        }
+
+        hab.save()
+        return true;
+      } catch (e) {
+        console.error(err)
+        return false;
+      }
 
     },
 
-    updateHabit: async () => {
+    updateHabit: async (parent, {habit}, { models, user }) => {
 
+      try {
+
+        const hab = await models.Habit.findOne({ _id: habit.id, user_id: user.id })
+
+        if (!hab) {
+          throw new UserInputError('Habit ID not found')
+        }
+
+        hab.group_id = habit.group_Id 
+        hab.name = habit.name 
+        hab.description = habit.description
+        hab.start_date = habit.start_Date
+        hab.end_date = habit.end_Date
+        hab.frequency = habit.frequency
+        hab.completion_pct = habit.completion_Prct
+
+        hab.save()
+        return true;
+      } catch (e) {
+        console.error(err)
+        return false;
+      }
 
     },
 
-    deleteUser: async () => {
+    updateHabitGroup: async (parent, {habit}, { models, user }) => {
 
+      try {
+
+        const hab = await models.Habit.findAll({ _id: habit.id, user_id: user.id })
+
+        if (!hab) {
+          throw new UserInputError('Habit ID not found')
+        }
+
+        hab.group_id = habit.group_Id 
+        hab.name = habit.name 
+        hab.description = habit.description
+        hab.start_date = habit.start_Date
+        hab.end_date = habit.end_Date
+        hab.frequency = habit.frequency
+        hab.completion = habit.completion
+        hab.missed = habit.missed
+
+        hab.save()
+        return true;
+      } catch (e) {
+        console.error(err)
+        return false;
+      }
+
+    },
+
+    removeHabit: async (parent, {habit}, { models, user }) => {
+      
+      try {
+
+        await models.Habit.findOneAndDelete({ _id: habit.id, user_id: user.id })
+        return true;
+      } catch (e) {
+        console.error(err)
+        return false;
+      }
+
+    },
+
+    removeAllUserHabits: async (parent, args, { models, user }) => {
+  
+      try {
+
+        await models.Habit.deleteMany({ user: user_id})
+        return true;
+      } catch (e) {
+        console.error(err)
+        return false;
+      }
 
     }
+
+  }
 }

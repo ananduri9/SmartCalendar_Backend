@@ -2,17 +2,16 @@ import { gql } from 'apollo-server-express'
 
 export default gql`
     extend type Query {
-    	user_habit(
+    	getHabit(
     		id: ID
-        	user_id: ID
         ): Habit
 
-        user_habits(user_id: ID): [Habit!]
+        getHabits(): [Habit!]
 
-        group_habit(
+        getGroupHabit(
         	id: ID
         	group_id: ID
-        ): [Habit!]
+        ): Habit
 
     }
 
@@ -25,14 +24,15 @@ export default gql`
 	        habit: Habit
         ): Boolean!
 
-        removeHabit(
+        updateHabitGroup(
 	        habit: Habit
         ): Boolean!
 
-        accomplishHabit(
+        removeHabit(
         	id: ID
-        	user_id: ID
         ): Boolean!
+
+        removeAllUserHabits(): Boolean!
 
     }
 
@@ -43,14 +43,25 @@ export default gql`
 	}
 
     type Habit {
+    	"Habit ID"
         id: ID
-        user_id: ID
-        group_id: ID!
-        habit_name: String
+        "Habit user ID"
+        user_Id: ID
+        "Habit group ID -- optional"
+        group_Id: ID!
+        "Habit name"
+        name: String
+        "Habit description -- optional"
         description: String!
-        start_date: Date
+        "Habit start date"
+        start_Date: Date
+        "Habit end date"
+        end_Date: Date
         frequency: Int
-        completion_prct: Int
+        "Habit completion #"
+        completion: Int
+        "Habit missed #"
+        missed: Int
     }
 
 `

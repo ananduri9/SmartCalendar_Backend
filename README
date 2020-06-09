@@ -2,5 +2,6 @@ Smart Calendar using Node.js with Express, Apollo Server/GraphQL, and MongoDB wi
 
 ##Instructions
 
-'''npm install'''
-'''npm start'''
+- add .env file
+- run: '''npm install'''
+- run: '''npm start'''

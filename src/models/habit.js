@@ -1,18 +1,10 @@
 import mongoose from 'mongoose'
 
 const habitSchema = new mongoose.Schema({
-  id: {
-    type: Number,
-    required: true
+  group_id: {
+    type: Number
   },
-  // user_id: {
-  //   type: Number,
-  //   required: true
-  // },
-  // group_id: {
-  //   type: Number
-  // },
-  habit_name: {
+  name: {
     type: String,
     required: true
   },
@@ -20,19 +12,26 @@ const habitSchema = new mongoose.Schema({
     type: String
   },
   start_date: {
-    type: Date
+    type: Date,
+    required: true
   },
   end_date: {
-    type: Date
+    type: Date,
+    required: true
   },
   frequency: {
+    type: Number,
+    required: true
+  },
+  completion: {
     type: Number
   },
-  completion_pct: {
+  missed: {
     type: Number
-  }
+  },
 
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+
 })
 
 const Habit = mongoose.model('Habit', habitSchema)
