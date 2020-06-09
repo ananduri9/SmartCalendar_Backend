@@ -13,6 +13,11 @@ const app = express()
 
 app.use(cors())
 
+ getUser = async (token) => {
+  //PLACEHOLDER ONLY. NEED TO FIX!
+  return await models.User.find({ Oauth_Token: token })
+}
+
 const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
@@ -50,10 +55,5 @@ connectDb().then(async () => {
     console.log(`Apollo Server on http://localhost:${port}/graphql`)
   })
 })
-
-function getUser(token) {
-  //PLACEHOLDER ONLY. NEED TO FIX!
-  return await models.User.find({ Oauth_Token: token })
-}
 
 
