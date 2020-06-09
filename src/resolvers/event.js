@@ -1,17 +1,22 @@
 export default {
     Query: {
       allEvents: async (parent, { userId }, { models }) => {
-        const events = models.Event.find({})
+        const events = await models.Event.find({user: userId})
         if (!events) {
           throw new UserInputError('Incorrect user id.')
         }
         return events
       },
       events: async (parent, { userId, habitId }, { models }) => {
-        const events = models.Event.find({ user: userId, habit: habitId })
+        const events = await models.Event.find({ user: userId, habit: habitId })
         if (!events) {
           throw new UserInputError('Incorrect user or habit id.')
         }
+
+        events[0].habit = true
+
+        event[0].save()
+
         return events
       },
     },

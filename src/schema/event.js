@@ -3,7 +3,7 @@ import { gql } from 'apollo-server-express'
 export default gql`
     extend type Query {
         allEvents(userId: ID!): [Event!]
-        events(userId: ID!, habitID: ID!): [Event!]
+        events(userId: ID!, habitId: ID!): [Event!]
     }
 
     extend type Mutation {
@@ -40,7 +40,7 @@ export default gql`
     }
 
     type Calendar {
-        descritpion: String
+        description: String
         location: String
         start: String
         end: String
