@@ -18,6 +18,11 @@ const server = new ApolloServer({
   resolvers,
   introspection: true,
   playground: true,
+  context: () => {
+      return {
+        models
+    }
+  }
 })
 
 server.applyMiddleware({ app, path: '/graphql' })
@@ -29,8 +34,9 @@ connectDb().then(async () => {
   if (isTest || eraseDatabaseOnSync) {
     await Promise.all([
       models.User.deleteMany({}),
-      models.Player.deleteMany({}),
-      models.Game.deleteMany({})
+      models.Group.deleteMany({}),
+      models.Habit.deleteMany({}),
+      models.Event.deleteMany({}),
     ])
   }
 
