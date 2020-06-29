@@ -23,6 +23,7 @@ export default {
             }
             try {
                 await models.Group.groupUsers.push(userID)
+                return true
             } catch(err) {
             console.error(err)
             return false
