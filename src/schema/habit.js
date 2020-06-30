@@ -59,7 +59,7 @@ export default gql`
         end_Date: Date
         frequency: Int
         "Habit completion #"
-        completion: Int
+        completed: Int
         "Habit missed #"
         missed: Int
     }

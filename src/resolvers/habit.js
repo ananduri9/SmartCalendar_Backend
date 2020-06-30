@@ -48,7 +48,8 @@ export default {
           start_Date: start_date,
           end_Date: end_date,
           frequency: frequency,
-          completion_Prct: completion_pct,
+          completed: 0,
+          missed: 0,
           user: user.id
         })
 
@@ -82,7 +83,8 @@ export default {
         hab.start_date = habit.start_Date
         hab.end_date = habit.end_Date
         hab.frequency = habit.frequency
-        hab.completion_pct = habit.completion_Prct
+        hab.completed = habit.completed
+        hab.missed = habit.missed
 
         hab.save()
         return true;
@@ -97,22 +99,28 @@ export default {
 
       try {
 
-        const hab = await models.Habit.findAll({ _id: habit.id, user_id: user.id })
+        habs[] = await models.Habit.findAll({ group_id: habit.group_Id })
 
-        if (!hab) {
-          throw new UserInputError('Habit ID not found')
+        if (habs.length == 0) {
+          throw new UserInputError('Group ID not found')
         }
 
-        hab.group_id = habit.group_Id 
-        hab.name = habit.name 
-        hab.description = habit.description
-        hab.start_date = habit.start_Date
-        hab.end_date = habit.end_Date
-        hab.frequency = habit.frequency
-        hab.completion = habit.completion
-        hab.missed = habit.missed
+        var i;
+        for (i = 0; i < habs.length; i++) {
 
-        hab.save()
+          habs[i].group_id = habit.group_Id 
+          habs[i].name = habit.name 
+          habs[i].description = habit.description
+          habs[i].start_date = habit.start_Date
+          habs[i].end_date = habit.end_Date
+          habs[i].frequency = habit.frequency
+          habs[i].completed = habit.completed
+          habs[i].missed = habit.missed
+
+          habs[i].save()
+        } 
+
+
         return true;
       } catch (e) {
         console.error(err)

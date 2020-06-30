@@ -23,7 +23,7 @@ const habitSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  completion: {
+  completed: {
     type: Number
   },
   missed: {
