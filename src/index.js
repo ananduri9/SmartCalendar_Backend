@@ -13,9 +13,26 @@ const app = express()
 
 app.use(cors())
 
+ getUser = async (token) => {
+  //PLACEHOLDER ONLY. NEED TO FIX!
+  return await models.User.find({ Oauth_Token: token })
+}
+
 const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
+  context: ({ req, res }) => {
+   //see this:
+   //https://www.apollographql.com/docs/apollo-server/security/authentication/#putting-user-info-on-the-context
+   const token = req.headers.authorization || '';
+
+   // try to retrieve a user with the token
+   const user = getUser(token);
+   if (!user) throw new AuthenticationError('you must be logged in'); 
+
+   // add the user to the context
+   return { models, user };
+  },
   introspection: true,
   playground: true,
   context: () => {
@@ -44,3 +61,5 @@ connectDb().then(async () => {
     console.log(`Apollo Server on http://localhost:${port}/graphql`)
   })
 })
+
+
