@@ -99,7 +99,7 @@ export default {
 
       try {
 
-        habs[] = await models.Habit.findAll({ group_id: habit.group_Id })
+        let habs = await models.Habit.findAll({ group_id: habit.group_Id })
 
         if (habs.length == 0) {
           throw new UserInputError('Group ID not found')

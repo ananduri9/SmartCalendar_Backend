@@ -24,11 +24,4 @@ export default gql`
         groupName: String!
         groupMembers: [User!]
     }
-
-    type User {
-        userID: ID!
-        email: String!
-        firstName: String!
-        lastName: String!
-    }
 `

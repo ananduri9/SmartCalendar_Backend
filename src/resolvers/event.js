@@ -150,23 +150,23 @@ export default {
 
     Event: {
         user: async (event, args, { models }) => {
-          const event = await models.User.find({
+          const getEvent = await models.User.find({
             event: event.id
           })
-          if (!event) {
+          if (!getEvent) {
             throw new UserInputError('Failed to find event.')
           }
-          return event
+          return getEvent
         },
 
         habits: async (event, args, { models }) => {
-          const habits = await models.Habit.find({
+          const getHabits = await models.Habit.find({
             event: event.id
           })
-          if (!habits) {
+          if (!getHabits) {
             throw new UserInputError('Failed to find habits.')
           }
-          return habits
+          return getHabits
         },
     }
 }

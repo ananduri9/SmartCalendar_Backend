@@ -6,7 +6,7 @@ export default gql`
     		id: ID
         ): Habit
 
-        getHabits(): [Habit!]
+        getHabits: [Habit!]
 
         getGroupHabit(
         	id: ID
@@ -17,22 +17,22 @@ export default gql`
 
     extend type Mutation {
     	createHabit(
-    		habit: Habit
+    		habit: HabitInput
         ): Boolean!
 
         updateHabit(
-	        habit: Habit
+	        habit: HabitInput
         ): Boolean!
 
         updateHabitGroup(
-	        habit: Habit
+	        habit: HabitInput
         ): Boolean!
 
         removeHabit(
         	id: ID
         ): Boolean!
 
-        removeAllUserHabits(): Boolean!
+        removeAllUserHabits: Boolean!
 
     }
 
@@ -44,6 +44,28 @@ export default gql`
 
     type Habit {
     	"Habit ID"
+        id: ID
+        "Habit user ID"
+        user_Id: ID
+        "Habit group ID -- optional"
+        group_Id: ID!
+        "Habit name"
+        name: String
+        "Habit description -- optional"
+        description: String!
+        "Habit start date"
+        start_Date: Date
+        "Habit end date"
+        end_Date: Date
+        frequency: Int
+        "Habit completion #"
+        completed: Int
+        "Habit missed #"
+        missed: Int
+    }
+
+    input HabitInput {
+        "Habit ID"
         id: ID
         "Habit user ID"
         user_Id: ID

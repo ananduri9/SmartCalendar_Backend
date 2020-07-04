@@ -22,12 +22,6 @@ const userSchema = new mongoose.Schema({
     type: String
     //correct format?
   },
-  userID: {
-    type: mongoose.Schema.Types.ObjectId,
-    //do i need a ref
-    required: true,
-    unique: true
-  },
   syncTime: {
     type: Number
   },

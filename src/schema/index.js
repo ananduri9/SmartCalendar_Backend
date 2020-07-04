@@ -15,4 +15,4 @@ const linkSchema = gql`
     }
 `
 
-export default [linkSchema, userSchema, groupSchema, habitSchema, evenetSchema]
+export default [linkSchema, userSchema, groupSchema, habitSchema, eventSchema]

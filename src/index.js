@@ -13,7 +13,7 @@ const app = express()
 
 app.use(cors())
 
- getUser = async (token) => {
+ const getUser = async (token) => {
   //PLACEHOLDER ONLY. NEED TO FIX!
   return await models.User.find({ Oauth_Token: token })
 }

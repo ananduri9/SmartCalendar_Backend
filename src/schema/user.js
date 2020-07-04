@@ -19,7 +19,7 @@ export default gql`
             oAuthToken: String!
         ): Token!
         updateSyncTime(
-            syncTime: Number!
+            syncTime: Int!
         ): Boolean!
         deleteAccount(userID: ID!): Boolean!
     }
@@ -30,7 +30,7 @@ export default gql`
         firstName: String!
         lastName: String!
         oAuthToken: String!
-        syncTime: Number!
+        syncTime: Int!
         
         group: Group!
     }
