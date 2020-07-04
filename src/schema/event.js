@@ -13,6 +13,7 @@ export default gql`
             start: String!
             end: String!
             location: String
+            habitId: ID
             ): Event
         updateEvent(
             eventId: ID!
@@ -20,12 +21,18 @@ export default gql`
             description: String!
             start: String!
             end: String!
+            completed: Boolean
             location: String
+            habitId: ID
             ): Event
         removeEvent(eventID: ID): Boolean
 
         accomplish(eventId: ID): Boolean
-        reschedule(eventId: ID): Event
+        reschedule(
+            eventId: ID
+            start: String!
+            end: String!
+        ): Event
     }
 
     type Event {
