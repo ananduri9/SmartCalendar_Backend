@@ -24,10 +24,12 @@ const habitSchema = new mongoose.Schema({
     required: true
   },
   completed: {
-    type: Number
+    type: Number,
+    required: true
   },
   missed: {
-    type: Number
+    type: Number,
+    required: true
   },
 
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },

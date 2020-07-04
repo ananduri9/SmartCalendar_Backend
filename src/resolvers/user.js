@@ -15,11 +15,11 @@ const generatePasswordHash = async function (password) {
 
 export default {
   Query: {
-    me: async (parent, args, { me, models }) => {
-      if (!me) {
+    me: async (parent, args, { models, user }) => {
+      if (!user) {
         return null
       }
-      return await models.User.findOne({ _id: me.id })
+      return await models.User.findOne({ _id: user.id })
     }
   },
 
@@ -87,9 +87,9 @@ export default {
     },
 
     deleteAccount: combineResolvers(
-      async (parent, { userID }, { models }) => {
+      async (parent, args, { models, user }) => {
         try {
-          await models.User.findOneAndRemove({ _id: id })
+          await models.User.findOneAndRemove({ _id: user.id })
         } catch (err) {
           console.error(err)
           throw new UserInputError('Failed to delete user')

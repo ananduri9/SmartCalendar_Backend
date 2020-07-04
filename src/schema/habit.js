@@ -43,47 +43,47 @@ export default gql`
 	}
 
     type Habit {
-    	"Habit ID"
-        id: ID
+        "Habit ID"
+        id: ID!
         "Habit user ID"
-        user_Id: ID
+        user_Id: ID!
         "Habit group ID -- optional"
-        group_Id: ID!
+        group_Id: ID
         "Habit name"
-        name: String
+        name: String!
         "Habit description -- optional"
-        description: String!
+        description: String
         "Habit start date"
-        start_Date: Date
+        start_Date: Date1
         "Habit end date"
-        end_Date: Date
-        frequency: Int
+        end_Date: Date!
+        frequency: Int!
         "Habit completion #"
-        completed: Int
+        completed: Int!
         "Habit missed #"
-        missed: Int
+        missed: Int!
     }
 
     input HabitInput {
         "Habit ID"
-        id: ID
+        id: ID!
         "Habit user ID"
-        user_Id: ID
+        user_Id: ID!
         "Habit group ID -- optional"
-        group_Id: ID!
+        group_Id: ID
         "Habit name"
-        name: String
+        name: String!
         "Habit description -- optional"
-        description: String!
+        description: String
         "Habit start date"
-        start_Date: Date
+        start_Date: Date1
         "Habit end date"
-        end_Date: Date
-        frequency: Int
+        end_Date: Date!
+        frequency: Int!
         "Habit completion #"
-        completed: Int
+        completed: Int!
         "Habit missed #"
-        missed: Int
+        missed: Int!
     }
 
 `
