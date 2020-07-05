@@ -2,8 +2,8 @@ import { gql } from 'apollo-server-express'
 
 export default gql`
     extend type Query {
-        allEvents(userId: ID!): [Event!]
-        events(userId: ID!, habitId: ID!): [Event!]
+        allEvents: [Event!]
+        events(habitId: ID!): [Event!]
     }
 
     extend type Mutation {

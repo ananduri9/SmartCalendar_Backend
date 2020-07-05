@@ -3,15 +3,15 @@ import habit from "../schema/habit"
 
 export default {
     Query: {
-      allEvents: async (parent, { userId }, { models }) => {
-        const events = await models.Event.find({user: userId})
+      allEvents: async (parent, args, { models, user }) => {
+        const events = await models.Event.find({user: user.id})
         if (!events) {
           throw new UserInputError('Incorrect user id.')
         }
         return events
       },
-      events: async (parent, { userId, habitId }, { models }) => {
-        const events = await models.Event.find({ user: userId, habit: habitId })
+      events: async (parent, {habitId }, { models, user}) => {
+        const events = await models.Event.find({ user: user.id, habit: habitId })
         if (!events) {
           throw new UserInputError('Incorrect user or habit id.')
         }

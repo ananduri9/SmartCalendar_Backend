@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import { UserInputError } from 'apollo-server-express'
 import { combineResolvers } from 'graphql-resolvers'
-import bcrypt from 'bcrypt'
+import bcryptjs from 'bcryptjs'
 
 const createToken = async (user, secret) => {
   const { userID, email, firstName, lastName } = user
@@ -10,7 +10,7 @@ const createToken = async (user, secret) => {
 
 const generatePasswordHash = async function (password) {
   const saltRounds = 10
-  return await bcrypt.hash(password, saltRounds)
+  return await bcryptjs.hash(password, saltRounds)
 }
 
 export default {

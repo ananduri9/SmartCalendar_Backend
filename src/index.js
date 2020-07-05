@@ -44,7 +44,9 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app, path: '/graphql' })
 
-const port =  8000
+const isTest = process.env.NODE_ENV === 'test'
+
+const port = process.env.PORT || 8000
 
 const eraseDatabaseOnSync = false
 connectDb().then(async () => {
